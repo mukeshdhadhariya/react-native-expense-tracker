@@ -28,8 +28,7 @@ export async function createTransaction(req, res) {
       VALUES (${user_id},${title},${amount},${category})
       RETURNING *
     `;
-
-    console.log(transaction);
+    
     res.status(201).json(transaction[0]);
   } catch (error) {
     console.log("Error creating the transaction", error);
