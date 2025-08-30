@@ -4,7 +4,7 @@ import { initDB } from "./config/db.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 
 import transactionsRoute from "./routes/transactionsRoute.js";
-import {job} from "./config/cron.js";
+import job from "./config/corn.js";
 
 dotenv.config();
 
