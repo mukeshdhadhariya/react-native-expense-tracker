@@ -22,4 +22,8 @@ Built with **React Native** for the frontend and **Node.js + Express** for the b
 
 ---
 
+<img width="355" height="739" alt="image" src="https://github.com/user-attachments/assets/1f3c65b1-635d-4739-b432-9f4526b603b1" />
+<img width="356" height="738" alt="image" src="https://github.com/user-attachments/assets/e334d9bb-ed55-4b8c-9761-ab41c3bacc63" />
+
+
 
