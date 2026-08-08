@@ -5,6 +5,7 @@ import rateLimiter from "./middleware/rateLimiter.js";
 
 import transactionsRoute from "./routes/transactionsRoute.js";
 import job from "./config/corn.js";
+import { clerkAuthMiddleware,requireClerkAuth } from "./middleware/authMiddleware.js";
 
 dotenv.config();
 
@@ -18,11 +19,13 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5001;
 
+app.use(clerkAuthMiddleware);
+
 app.get("/api/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
-app.use("/api/transactions", transactionsRoute);
+app.use("/api/transactions",requireClerkAuth, transactionsRoute);
 
 initDB().then(() => {
   app.listen(PORT, () => {

@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { useUser } from "@clerk/clerk-expo";
+import { useUser,useAuth} from "@clerk/clerk-expo";
 import { useState } from "react";
 import { API_URL } from "../../constants/api";
 import { styles } from "../../assets/styles/create.styles";
@@ -23,6 +23,7 @@ const CATEGORIES = [
   { id: "bills", name: "Bills", icon: "receipt" },
   { id: "income", name: "Income", icon: "cash" },
   { id: "other", name: "Other", icon: "ellipsis-horizontal" },
+  { id: "rent", name: "Rent", icon: "ellipsis-horizontal" }
 ];
 
 const CreateScreen = () => {
@@ -44,6 +45,11 @@ const CreateScreen = () => {
     }
 
     if (!selectedCategory) return Alert.alert("Error", "Please select a category");
+    const {getToken}=useAuth();
+    const token=await getToken();
+    if(!token){
+      throw new Error("Authentication token not available")
+    }
 
     setIsLoading(true);
     try {
@@ -56,6 +62,7 @@ const CreateScreen = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({
           user_id: user.id,
