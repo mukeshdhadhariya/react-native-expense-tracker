@@ -607,13 +607,6 @@ const CreateScreen = () => {
               New Transaction
             </Text>
 
-            <Text
-              style={
-                styles.headerSubtitle
-              }
-            >
-              Track your money
-            </Text>
           </View>
 
 
@@ -653,13 +646,7 @@ const CreateScreen = () => {
                   Save
                 </Text>
 
-                <Ionicons
-                  name="checkmark"
-                  size={16}
-                  color={
-                    theme.textOnPrimary
-                  }
-                />
+
               </>
             )}
           </TouchableOpacity>

@@ -32,7 +32,15 @@ export const TransactionItem = React.memo(({ item, onDelete }) => {
   const iconName = CATEGORY_ICONS[category] || "pricetag-outline";
 
   const amountColor = isIncome ? theme.income : theme.expense;
-  const date = formatDate(item?.created_at);
+  const date = item?.created_at
+                ? new Date(item.created_at)
+                    .toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "short",
+                      year: "2-digit",
+                    })
+                    .replace(/,/g, "")
+                : "";
 
   const formattedAmount = `${isIncome ? "+" : "-"}₹${Math.abs(amount).toLocaleString("en-IN", {
     minimumFractionDigits: 2,
@@ -48,7 +56,7 @@ export const TransactionItem = React.memo(({ item, onDelete }) => {
     <View style={styles.transactionCard}>
       {/* CATEGORY ICON */}
       <View style={[styles.categoryIconContainer, { backgroundColor: iconBgColor }]}>
-        <Ionicons name={iconName} size={20} color={amountColor} />
+        <Ionicons name={iconName} size={18} color={amountColor} />
       </View>
 
       {/* MAIN INFORMATION */}
@@ -62,11 +70,6 @@ export const TransactionItem = React.memo(({ item, onDelete }) => {
             {category}
           </Text>
 
-          <View style={styles.metaDot} />
-
-          <Text style={styles.transactionDate} numberOfLines={1}>
-            {date}
-          </Text>
         </View>
       </View>
 
@@ -80,6 +83,9 @@ export const TransactionItem = React.memo(({ item, onDelete }) => {
         >
           {formattedAmount}
         </Text>
+          <Text style={styles.transactionDate} numberOfLines={1}>
+            {date}
+          </Text>
       </View>
 
       {/* DELETE BUTTON */}

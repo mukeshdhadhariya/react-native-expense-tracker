@@ -3,6 +3,7 @@
 const createTheme = ({
   name,
   icon,
+  isDark = false,
   primary,
   background,
   surface,
@@ -16,6 +17,7 @@ const createTheme = ({
 }) => ({
   name,
   icon,
+  isDark,
 
   // Brand
   primary,
@@ -29,6 +31,7 @@ const createTheme = ({
   text,
   textSecondary,
   textMuted,
+  textLight: textMuted,
 
   // Borders
   border,
@@ -44,16 +47,18 @@ const createTheme = ({
   // Semantic
   textOnPrimary: "#FFFFFF",
 
-  // Soft backgrounds
-  primarySoft: `${primary}14`,
-  expenseSoft: `${expense}12`,
-  incomeSoft: `${income}12`,
+  // Soft backgrounds / Tints
+  primarySoft: `${primary}1E`,
+  expenseSoft: `${expense}1E`,
+  incomeSoft: `${income}1E`,
+  expenseLight: `${expense}1A`,
+  incomeLight: `${income}1A`,
 
   // Status bar
-  statusBar: "dark",
+  statusBar: isDark ? "light" : "dark",
 
   // Shadow
-  shadow: "#000000",
+  shadow: isDark ? "#000000" : "#000000",
 });
 
 // ==========================================================
@@ -95,7 +100,6 @@ const forestTheme = createTheme({
   text: "#173B1B",
   textSecondary: "#416146",
   textMuted: "#729275",
-  textLight:"#C62828",
 
   border: "#D4E5D5",
 
@@ -149,6 +153,29 @@ const oceanTheme = createTheme({
   income: "#239B8B",
 });
 
+// ==========================================================
+// DARK (MIDNIGHT)
+// ==========================================================
+
+const darkTheme = createTheme({
+  name: "Dark",
+  icon: "🌙",
+  isDark: true,
+
+  primary: "#818CF8",
+  background: "#121214",
+  surface: "#1A1A1E",
+  surfaceElevated: "#24242A",
+
+  text: "#F3F4F6",
+  textSecondary: "#9CA3AF",
+  textMuted: "#6B7280",
+
+  border: "#2E2E35",
+
+  expense: "#F87171",
+  income: "#4ADE80",
+});
 
 // ==========================================================
 // EXPORT
@@ -159,6 +186,7 @@ export const THEMES = {
   forest: forestTheme,
   purple: purpleTheme,
   ocean: oceanTheme,
+  dark: darkTheme,
 };
 
 export const THEME_KEYS = Object.keys(THEMES);

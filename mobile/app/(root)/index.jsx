@@ -361,13 +361,6 @@ export default function Page() {
 
             <View style={styles.welcomeContainer}>
               <Text
-                style={styles.welcomeText}
-                numberOfLines={1}
-              >
-                Welcome back
-              </Text>
-
-              <Text
                 style={styles.usernameText}
                 numberOfLines={1}
                 ellipsizeMode="tail"

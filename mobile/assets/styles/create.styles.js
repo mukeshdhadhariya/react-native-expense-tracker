@@ -36,13 +36,13 @@ export const createCreateStyles = (
     },
 
     headerTitle: {
-      fontSize: 18,
+      fontSize: 15,
       fontWeight: "700",
       color: theme.text,
     },
 
     saveButtonContainer: {
-      minWidth: 66,
+      minWidth: 60,
       height: 40,
       paddingHorizontal: 14,
       borderRadius: 20,
@@ -117,7 +117,7 @@ export const createCreateStyles = (
     },
 
     amountContainer: {
-      height: 68,
+      height: 58,
       flexDirection: "row",
       alignItems: "center",
       paddingHorizontal: 15,
@@ -127,11 +127,11 @@ export const createCreateStyles = (
       borderWidth: 1,
       borderColor:
         theme.border,
-      marginBottom: 14,
+      marginBottom: 10,
     },
 
     currencySymbol: {
-      fontSize: 27,
+      fontSize: 25,
       fontWeight: "800",
       color: theme.text,
       marginRight: 5,
@@ -140,7 +140,7 @@ export const createCreateStyles = (
     amountInput: {
       flex: 1,
       height: 60,
-      fontSize: 28,
+      fontSize: 25,
       fontWeight: "800",
       color: theme.text,
       paddingVertical: 0,
@@ -182,7 +182,7 @@ export const createCreateStyles = (
     categoryGrid: {
       flexDirection: "row",
       flexWrap: "wrap",
-      gap: 7,
+      gap:3,
     },
 
     categoryButton: {

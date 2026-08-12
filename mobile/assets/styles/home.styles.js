@@ -58,8 +58,8 @@ export const createHomeStyles = (theme) =>
     },
 
     avatar: {
-      width: 44,
-      height: 44,
+      width: 39,
+      height: 39,
 
       borderRadius: 22,
 
@@ -94,7 +94,7 @@ export const createHomeStyles = (theme) =>
     },
 
     usernameText: {
-      fontSize: 17,
+      fontSize: 15,
       fontWeight: "700",
       color: theme.text,
     },
@@ -112,8 +112,8 @@ export const createHomeStyles = (theme) =>
     },
 
     iconButton: {
-      width: 42,
-      height: 42,
+      width: 38,
+      height: 38,
 
       borderRadius: 21,
 
@@ -131,8 +131,8 @@ export const createHomeStyles = (theme) =>
     },
 
     addButton: {
-      width: 44,
-      height: 44,
+      width: 38,
+      height: 38,
 
       borderRadius: 22,
 
@@ -164,7 +164,7 @@ export const createHomeStyles = (theme) =>
 
     balanceWrapper: {
       paddingHorizontal: 18,
-      marginBottom: 22,
+      marginBottom: 18,
     },
 
     // ==========================================================
@@ -258,13 +258,13 @@ export const createHomeStyles = (theme) =>
     },
 
     sectionTitle: {
-      fontSize: 19,
+      fontSize: 16,
       fontWeight: "800",
       color: theme.text,
     },
 
     sectionSubtitle: {
-      marginTop: 3,
+      marginTop: 2,
 
       fontSize: 12,
       color: theme.textMuted,
@@ -337,8 +337,8 @@ export const createHomeStyles = (theme) =>
   },
 
   categoryIconContainer: {
-    width: 42,
-    height: 42,
+    width: 40,
+    height: 40,
     flexShrink: 0,
 
     alignItems: "center",
@@ -357,7 +357,7 @@ export const createHomeStyles = (theme) =>
   },
 
   transactionTitle: {
-    fontSize: 15,
+    fontSize: 13,
     fontWeight: "600",
     color: theme.text,
     letterSpacing: -0.2,
@@ -389,7 +389,7 @@ export const createHomeStyles = (theme) =>
 
   transactionDate: {
     flexShrink: 0,
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: "500",
     color: theme.textSecondary || theme.textLight,
   },

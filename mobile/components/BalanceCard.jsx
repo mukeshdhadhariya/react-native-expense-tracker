@@ -21,8 +21,7 @@ export const BalanceCard = ({
   const income =
     Number(summary?.income) || 0;
 
-  const expenses =
-    Number(summary?.expenses) || 0;
+  const expenses = Math.abs(Number(summary?.expenses) || 0);
 
   return (
     <View
@@ -61,10 +60,7 @@ export const BalanceCard = ({
               },
             ]}
           >
-            +₹
-            {income.toLocaleString(
-              "en-IN"
-            )}
+            {`+₹ ${income.toLocaleString("en-IN")}`}
           </Text>
         </View>
 
@@ -85,15 +81,11 @@ export const BalanceCard = ({
             style={[
               styles.statAmount,
               {
-                color:
-                  theme.expense,
+                color: theme.expense,
               },
             ]}
           >
-            -₹
-            {expenses.toLocaleString(
-              "en-IN"
-            )}
+            {`-₹ ${expenses.toLocaleString("en-IN")}`}
           </Text>
         </View>
       </View>
@@ -111,7 +103,7 @@ const createStyles = (theme) =>
       backgroundColor:
         theme.surface,
 
-      borderWidth: 1,
+      borderWidth: 0,
       borderColor:
         theme.border,
 
@@ -138,9 +130,8 @@ const createStyles = (theme) =>
     },
 
     balance: {
-      marginTop: 6,
 
-      fontSize: 32,
+      fontSize: 25,
       fontWeight: "800",
 
       letterSpacing: -0.5,
@@ -153,7 +144,7 @@ const createStyles = (theme) =>
       flexDirection: "row",
       alignItems: "center",
 
-      marginTop: 22,
+      marginTop: 10,
     },
 
     stat: {
@@ -166,11 +157,11 @@ const createStyles = (theme) =>
       color:
         theme.textMuted,
 
-      marginBottom: 4,
+      marginBottom: 3,
     },
 
     statAmount: {
-      fontSize: 16,
+      fontSize: 15,
       fontWeight: "700",
     },
 
@@ -178,7 +169,7 @@ const createStyles = (theme) =>
       width: 1,
       height: 34,
 
-      marginHorizontal: 18,
+      marginHorizontal: 28,
 
       backgroundColor:
         theme.border,
