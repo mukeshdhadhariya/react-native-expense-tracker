@@ -1,46 +1,100 @@
+import React, { useMemo } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { styles } from "../assets/styles/home.styles";
-import { COLORS } from "../constants/colors";
+
+import { useTheme } from "../context/ThemeContext";
+import { createHomeStyles } from "../assets/styles/home.styles";
 import { formatDate } from "../lib/utils";
 
-// Map categories to their respective icons
 const CATEGORY_ICONS = {
-  "Food & Drinks": "fast-food",
-  Shopping: "cart",
-  Transportation: "car",
-  Entertainment: "film",
-  Bills: "receipt",
-  Income: "cash",
-  Other: "ellipsis-horizontal",
+  "Food & Drinks": "fast-food-outline",
+  Shopping: "cart-outline",
+  Transportation: "car-outline",
+  Entertainment: "film-outline",
+  Bills: "receipt-outline",
+  Income: "cash-outline",
+  Other: "ellipsis-horizontal-circle-outline",
+  Rent: "home-outline",
 };
 
-export const TransactionItem = ({ item, onDelete }) => {
-  const isIncome = parseFloat(item.amount) > 0;
-  const iconName = CATEGORY_ICONS[item.category] || "pricetag-outline";
+export const TransactionItem = React.memo(({ item, onDelete }) => {
+  const { theme } = useTheme();
+
+  // Memoize styles to prevent unnecessary object recalculations on scroll
+  const styles = useMemo(() => createHomeStyles(theme), [theme]);
+
+  const amount = Number(item?.amount) || 0;
+  const isIncome = amount > 0;
+
+  const transactionId = item?._id || item?.id;
+  const category = item?.category || "Other";
+  const title = item?.title || "Untitled transaction";
+  const iconName = CATEGORY_ICONS[category] || "pricetag-outline";
+
+  const amountColor = isIncome ? theme.income : theme.expense;
+  const date = formatDate(item?.created_at);
+
+  const formattedAmount = `${isIncome ? "+" : "-"}₹${Math.abs(amount).toLocaleString("en-IN", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}`;
+
+  // Dynamic soft-tint background matching transaction status
+  const iconBgColor = isIncome
+    ? theme.incomeLight || "rgba(34, 197, 94, 0.12)"
+    : theme.expenseLight || "rgba(239, 68, 68, 0.12)";
 
   return (
-    <View style={styles.transactionCard} key={item.id}>
-      <TouchableOpacity style={styles.transactionContent}>
-        <View style={styles.categoryIconContainer}>
-          <Ionicons name={iconName} size={22} color={isIncome ? COLORS.income : COLORS.expense} />
-        </View>
-        <View style={styles.transactionLeft}>
-          <Text style={styles.transactionTitle}>{item.title}</Text>
-          <Text style={styles.transactionCategory}>{item.category}</Text>
-        </View>
-        <View style={styles.transactionRight}>
-          <Text
-            style={[styles.transactionAmount, { color: isIncome ? COLORS.income : COLORS.expense }]}
-          >
-            {isIncome ? "+" : "-"}${Math.abs(parseFloat(item.amount)).toFixed(2)}
+    <View style={styles.transactionCard}>
+      {/* CATEGORY ICON */}
+      <View style={[styles.categoryIconContainer, { backgroundColor: iconBgColor }]}>
+        <Ionicons name={iconName} size={20} color={amountColor} />
+      </View>
+
+      {/* MAIN INFORMATION */}
+      <View style={styles.transactionInfo}>
+        <Text style={styles.transactionTitle} numberOfLines={1} ellipsizeMode="tail">
+          {title}
+        </Text>
+
+        <View style={styles.transactionMeta}>
+          <Text style={styles.transactionCategory} numberOfLines={1}>
+            {category}
           </Text>
-          <Text style={styles.transactionDate}>{formatDate(item.created_at)}</Text>
+
+          <View style={styles.metaDot} />
+
+          <Text style={styles.transactionDate} numberOfLines={1}>
+            {date}
+          </Text>
         </View>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.deleteButton} onPress={() => onDelete(item.id)}>
-        <Ionicons name="trash-outline" size={20} color={COLORS.expense} />
+      </View>
+
+      {/* AMOUNT */}
+      <View style={styles.transactionAmountContainer}>
+        <Text
+          style={[styles.transactionAmount, { color: amountColor }]}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.85}
+        >
+          {formattedAmount}
+        </Text>
+      </View>
+
+      {/* DELETE BUTTON */}
+      <TouchableOpacity
+        style={styles.deleteButton}
+        onPress={() => onDelete?.(transactionId)}
+        activeOpacity={0.6}
+        accessibilityRole="button"
+        accessibilityLabel={`Delete ${title}`}
+        hitSlop={{ top: 8, bottom: 8, left: 6, right: 6 }}
+      >
+        <Ionicons name="trash-outline" size={16} color={theme.textMuted || theme.textLight} />
       </TouchableOpacity>
     </View>
   );
-};
+});
+
+export default TransactionItem;
